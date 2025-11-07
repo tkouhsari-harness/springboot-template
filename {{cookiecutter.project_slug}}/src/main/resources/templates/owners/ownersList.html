@@ -24,14 +24,14 @@
         <td th:text="${owner.address}" />
         <td th:text="${owner.city}" />
         <td th:text="${owner.telephone}" />
-        <td><span th:text="${#strings.listJoin(owner.pets, ', ')}" /></td>
+        <td><span th:text="{% raw %}${#strings.listJoin(owner.pets, ', ')}{% endraw %}" /></td>
       </tr>
     </tbody>
   </table>
   <div th:if="${totalPages > 1}">
     <span th:text="#{pages}">Pages:</span>
     <span>[</span>
-    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+    <span th:each="i: {% raw %}${#numbers.sequence(1, totalPages)}{% endraw %}">
       <a th:if="${currentPage != i}" th:href="@{'/owners?page=' + ${i}}">[[${i}]]</a>
       <span th:unless="${currentPage != i}">[[${i}]]</span>
     </span>

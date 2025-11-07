@@ -13,8 +13,8 @@
         <div class="col-sm-10">
           <input class="form-control" th:field="*{lastName}" size="30" maxlength="80" />
           <span class="help-inline">
-            <div th:if="${#fields.hasAnyErrors()}">
-              <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+            <div th:if="{% raw %}${#fields.hasAnyErrors()}{% endraw %}">
+              <p th:each="err : {% raw %}${#fields.allErrors()}{% endraw %}" th:text="${err}">Error</p>
             </div>
           </span>
         </div>

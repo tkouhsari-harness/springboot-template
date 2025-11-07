@@ -1,0 +1,12 @@
+{
+  "project_name": "Spring Boot Application",
+  "project_slug": "{{ cookiecutter.project_name | lower | replace(\" \", \"-\") }}",
+  "package_name": "com.example",
+  "app_name": "MyApp",
+  "app_slug": "{{ cookiecutter.app_name | lower | replace(\" \", \"\") }}",
+  "full_package": "{{ cookiecutter.package_name }}.{{ cookiecutter.app_slug }}",
+  "description": "A Spring Boot application",
+  "version": "1.0.0-SNAPSHOT",
+  "author": "Your Name",
+  "java_version": "17"
+}
