@@ -42,10 +42,8 @@ docker_build_push:
     - docker:dind
   script:
     - docker login pkg.harness.io -u har@service.harness.io -p $HAR_TOKEN
-    - docker build -t pkg.harness.io/eerjnxtns4grlg5vnnjzuw/self_service_registry/{{cookiecutter.app_name}}:$CI_PIPELINE_IID .
-    - docker push pkg.harness.io/eerjnxtns4grlg5vnnjzuw/self_service_registry/{{cookiecutter.app_name}}:$CI_PIPELINE_IID
-  only:
-    - main  
+    - docker build -t pkg.harness.io/eerjnxtns4grlg5vnnjzuw/self_service_registry/$IMAGE_NAME:$CI_PIPELINE_IID .
+    - docker push pkg.harness.io/eerjnxtns4grlg5vnnjzuw/self_service_registry/$IMAGE_NAME:$CI_PIPELINE_IID
 
 harness_cd:
   stage: harness_cd
