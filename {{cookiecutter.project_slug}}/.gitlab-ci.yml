@@ -1,0 +1,57 @@
+stages:
+  - build
+  - test
+  - package
+  - docker_build_push
+  - harness_cd
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository
+
+build:
+  stage: build
+  image: maven:3.9.11-eclipse-temurin-21-alpine
+  script:
+    - mvn compile -Dcheckstyle.skip=true
+
+test:
+  stage: test
+  image: maven:3.9.11-eclipse-temurin-21-alpine
+  script:
+    - mvn test -Dcheckstyle.skip=true
+
+package:
+  stage: package
+  image: maven:3.9.11-eclipse-temurin-21-alpine
+  script:
+    - mvn package -DskipTests -Dcheckstyle.skip=true
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 week
+
+docker_build_push:
+  stage: package
+  needs: [package]
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login pkg.harness.io -u har@service.harness.io -p $har_token
+    - docker build -t pkg.harness.io/eerjnxtns4grlg5vnnjzuw/self_service_registry/{{cookiecutter.app_name}}:$CI_PIPELINE_IID .
+    - docker push pkg.harness.io/eerjnxtns4grlg5vnnjzuw/self_service_registry/{{cookiecutter.app_name}}:$CI_PIPELINE_IID
+  only:
+    - main  
+
+harness_cd:
+  stage: harness_cd
+  image: alpine/curl:latest
+  script:
+    - >
+      curl -X POST -H 'content-type: application/json' 
+      --url '$HARNESS_WEBHOOK_URL' 
+      -d '{"tag": "'$CI_PIPELINE_IID'"}'
