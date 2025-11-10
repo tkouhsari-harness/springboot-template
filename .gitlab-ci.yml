@@ -51,5 +51,5 @@ harness_cd:
   script:
     - >
       curl -X POST -H 'content-type: application/json' 
-      --url '$HARNESS_WEBHOOK_URL' 
+      --url "$HARNESS_WEBHOOK_URL"
       -d '{"tag": "'$CI_PIPELINE_IID'"}'
