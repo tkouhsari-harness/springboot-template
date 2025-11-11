@@ -8,5 +8,8 @@
   "description": "A Spring Boot application",
   "version": "1.0.0-SNAPSHOT",
   "author": "Your Name",
-  "java_version": "17"
+  "java_version": "17",
+    "_copy_without_render": [
+      ".github/workflows/main.yml"
+  ]
 }
