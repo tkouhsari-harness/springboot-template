@@ -72,7 +72,7 @@ jobs:
       - name: Wait for variables to be set
         run: |
           for i in {1..60}; do
-            if [ -n "${{ vars.IMAGE_NAME }}" ]; then
+            if [ "${{ vars.IMAGE_NAME }}" != "" ]; then
               echo "IMAGE_NAME is available: ${{ vars.IMAGE_NAME }}"
               exit 0
             fi
@@ -106,5 +106,5 @@ jobs:
       - name: Trigger Harness Deployment
         run: |
           curl -X POST -H 'content-type: application/json' \
-          --url "${{ secrets.HARNESS_WEBHOOK_URL }}" \
+          --url "${{ vars.HARNESS_WEBHOOK_URL }}" \
           -d '{"tag": "'${{ github.run_id }}'"}'
