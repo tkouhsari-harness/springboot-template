@@ -76,7 +76,7 @@ jobs:
               echo "IMAGE_NAME is available: ${{ vars.IMAGE_NAME }}"
               exit 0
             fi
-            echo "Waiting for IMAGE_NAME... ($i/60)"
+            echo "Waiting for IMAGE_NAME... ($i/60): ${{ vars.IMAGE_NAME }}"
             sleep 10
           done
           echo "IMAGE_NAME not set after 10 minutes"
