@@ -37,7 +37,7 @@ package:
 docker_build_push:
   stage: package
   needs: [package]
-  image: docker:stable
+  image: docker:dind
   services:
     - docker:dind
   script:
