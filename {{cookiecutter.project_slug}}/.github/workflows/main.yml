@@ -47,7 +47,7 @@ jobs:
     needs: test
     steps:
       - name: Wait for variables to be set
-        if: ${{ vars.IMAGE_NAME == "" }}
+        if: ${{ vars.IMAGE_NAME == '' }}
         run: sleep 60    
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
